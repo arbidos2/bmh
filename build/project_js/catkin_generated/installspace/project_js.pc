@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/install
+
+Name: project_js
+Description: Description of project_js
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: rospy std_msgs geometry_msgs actionlib_msgs move_base_msgs

@@ -1,0 +1,54 @@
+<launch>
+   <!-- Turtlebot3 Gazebo 환경 실행 -->
+   <include file="$(find yh_5th)/launch/yh_5th.launch" />
+
+   <!-- Gmapping SLAM 실행 -->
+   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+     <arg name="slam_methods" value="gmapping"/>
+   </include>
+
+   <!-- Explore Lite 실행 -->
+   <node pkg="explore_lite" type="explore" name="explore">
+     <remap from="costmap" to="map"/>
+   </node>
+
+   <!-- Move Base 실행 -->
+   <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+     <!-- DWAPlanner 파라미터 조정 -->
+     <param name="DWAPlannerROS/max_vel_trans" value="0.26"/>
+     <param name="DWAPlannerROS/min_vel_trans" value="0.15"/>  <!-- 최소 속도 상향 조정 -->
+     <param name="DWAPlannerROS/oscillation_reset_dist" value="0.1"/>  <!-- 오실레이션 거리 조정 -->
+     <param name="DWAPlannerROS/xy_goal_tolerance" value="0.05"/>
+     <param name="DWAPlannerROS/yaw_goal_tolerance" value="0.17"/>
+
+     <!-- Global 및 Local Costmap 파라미터 조정 -->
+     <param name="global_costmap/update_frequency" value="5.0"/> <!-- 글로벌 맵 업데이트 빈도 유지 -->
+     <param name="local_costmap/update_frequency" value="5.0"/>  <!-- 로컬 맵 업데이트 빈도 유지 -->
+     <param name="local_costmap/rolling_window" value="true"/>  <!-- 롤링 윈도우 활성화 -->
+     <param name="local_costmap/resolution" value="0.05"/>
+
+     <!-- Planner 및 Patience 관련 파라미터 조정 -->
+     <param name="planner_patience" value="10.0"/>  <!-- 경로 계획에 더 많은 시간 부여 -->
+     <param name="controller_patience" value="15.0"/> <!-- 컨트롤러 시간 유지 -->
+
+     <!-- 오실레이션 관련 설정 -->
+     <param name="oscillation_timeout" value="10.0"/> <!-- 오실레이션 타임아웃 설정 -->
+     <param name="oscillation_reset_dist" value="0.1"/>  <!-- 오실레이션 거리 재조정 -->
+
+     <!-- 추가 파라미터 설정 -->
+     <param name="planner_frequency" value="2.0"/>
+     <param name="controller_frequency" value="5.0"/>
+   </include>
+
+   <!-- Global Costmap Plugins 설정 -->
+   <rosparam param="global_costmap/plugins">
+     - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
+     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+   </rosparam>
+
+   <!-- Local Costmap Plugins 설정 -->
+   <rosparam param="local_costmap/plugins">
+     - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
+     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+   </rosparam>
+</launch>

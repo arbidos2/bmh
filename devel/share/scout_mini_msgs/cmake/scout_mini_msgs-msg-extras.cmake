@@ -1,0 +1,2 @@
+set(scout_mini_msgs_MESSAGE_FILES "/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/DriverState.msg;/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/FaultState.msg;/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/LightCommand.msg;/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/LightState.msg;/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/MotorState.msg;/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_msgs/msg/RobotState.msg")
+set(scout_mini_msgs_SERVICE_FILES "")

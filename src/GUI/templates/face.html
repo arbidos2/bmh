@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Face Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        #video-container {
+            width: 800px;
+            max-width: 100%;
+            border: 1px solid #ddd;
+            background: #000;
+            margin-bottom: 20px;
+        }
+        #video-container img {
+            width: 100%;
+            height: auto;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.start {
+            background-color: #28a745;
+            color: #fff;
+        }
+        button.stop {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Face Recognition</h1>
+    <div id="video-container">
+        <!-- Flask의 /video_feed 스트림을 표시 -->
+        <!-- Video Stream -->
+        <img src="{{ url_for('video_feed') }}" width="640" height="480" loading="lazy">
+    
+
+    </div>
+    <div>
+        <button id="start-recognition" class="start">Start Recognition</button>
+        <button id="stop-recognition" class="stop">Stop Recognition</button>
+    </div>
+
+    <!-- JavaScript 파일 포함 -->
+    <!-- <script src="/static/script.js"></script> -->
+</body>
+</html>
+

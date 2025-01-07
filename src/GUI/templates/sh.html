@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서현의 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .left-section {
+            width: 40%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        .left-section img {
+            width: 600px;
+            height: 480px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .right-section {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sub-section {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sub-section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .sub-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sub-section ul li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-button {
+            margin-left: 10px;
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .remove-button:hover {
+            background-color: #D32F2F;
+        }
+
+        .add-button {
+            display: block;
+            margin: 15px auto 0;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>서현의 페이지</header>
+    <div class="container">
+        <!-- Left Section: Patient Info -->
+        <div class="left-section">
+            <h2>환자 정보</h2>
+            <img src="/home/oem/catkin_JS_ws/src/GUI/static/sh.jpeg" alt="환자 사진">
+            <p><strong>생년월일:</strong> 1999.08.06</p>
+            <p><strong>성별:</strong> 남</p>
+            <p><strong>혈액형:</strong> Rh+O형</p>
+            <p><strong>입원 일자:</strong> 2023.01.06</p>
+            <p><strong>입원 호실:</strong> 503호</p>
+        </div>
+
+        <!-- Right Section: Medication and Rehab Schedule -->
+        <div class="right-section">
+            <div class="sub-section">
+                <h2>복용해야 하는 약</h2>
+                <ul id="medication-list">
+                    <li>
+                        <strong>오메프라졸</strong><br>위산억제 / 하루 두 알 / 식후
+                        <button class="remove-button" onclick="removeItem(this)">삭제</button>
+                    </li>
+                    <li>
+                        <strong>세레브렉스</strong><br>소염진통 / 하루 한 알 / 식후
+                        <button class="remove-button" onclick="removeItem(this)">삭제</button>
+                    </li>
+                </ul>
+                <button class="add-button" onclick="addMedicationItem()">항목 추가</button>
+            </div>
+
+            <div class="sub-section">
+                <h2>재활 활동 일정</h2>
+                <ul id="rehab-schedule">
+                    <li>
+                        8:00 AM - 스트레칭 및 가벼운 조깅
+                        <button class="remove-button" onclick="removeItem(this)">삭제</button>
+                    </li>
+                    <li>
+                        10:00 AM - 물리 치료
+                        <button class="remove-button" onclick="removeItem(this)">삭제</button>
+                    </li>
+                </ul>
+                <button class="add-button" onclick="addRehabItem()">항목 추가</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addRehabItem() {
+            const rehabList = document.getElementById('rehab-schedule');
+            const newItem = prompt('새로운 재활 일정 항목을 입력하세요:');
+            if (newItem) {
+                const li = document.createElement('li');
+                li.innerHTML = `${newItem} <button class="remove-button" onclick="removeItem(this)">삭제</button>`;
+                rehabList.appendChild(li);
+            }
+        }
+
+        function addMedicationItem() {
+            const medicationList = document.getElementById('medication-list');
+            const newItem = prompt('새로운 복용 약 항목을 입력하세요 (약명 / 용도 / 복용 횟수 / 복용 시간):');
+            if (newItem) {
+                const [name, purpose, dosage, timing] = newItem.split('/');
+                if (name && purpose && dosage && timing) {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${name.trim()}</strong><br>${purpose.trim()} / ${dosage.trim()} / ${timing.trim()} <button class="remove-button" onclick="removeItem(this)">삭제</button>`;
+                    medicationList.appendChild(li);
+                } else {
+                    alert('약명, 용도, 복용 횟수, 복용 시간을 올바르게 입력하세요!');
+                }
+            }
+        }
+
+        function removeItem(button) {
+            const li = button.parentElement;
+            li.remove();
+        }
+    </script>
+</body>
+</html>

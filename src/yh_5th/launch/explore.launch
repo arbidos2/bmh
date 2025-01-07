@@ -1,0 +1,18 @@
+<launch>
+   <!-- Turtlebot3 Gazebo 환경 실행 -->
+   <include file="$(find yh_5th)/launch/yh_5th.launch" />
+
+   <!-- Gmapping SLAM 실행 -->
+   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+     <arg name="slam_methods" value="gmapping"/>
+   </include>
+
+   <!-- Explore Lite 실행 -->
+   <node pkg="explore_lite" type="explore" name="explore">
+     <remap from="costmap" to="map"/>
+   </node>
+
+   <!-- Move Base 실행 -->
+   <include file="$(find turtlebot3_navigation)/launch/move_base.launch" />
+</launch>
+

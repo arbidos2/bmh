@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/devel
+
+Name: scout_mini_msgs
+Description: Description of scout_mini_msgs
+Version: 0.2.2
+Cflags: -I/home/oem/catkin_JS_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

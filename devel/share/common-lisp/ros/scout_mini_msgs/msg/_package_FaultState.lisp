@@ -1,0 +1,8 @@
+(cl:in-package scout_mini_msgs-msg)
+(cl:export '(BATTERY_UNDER_VOLTAGE_FAILURE-VAL
+          BATTERY_UNDER_VOLTAGE_FAILURE
+          BATTERY_UNDER_VOLTAGE_ALARM-VAL
+          BATTERY_UNDER_VOLTAGE_ALARM
+          LOSS_REMOTE_CONTROL-VAL
+          LOSS_REMOTE_CONTROL
+))

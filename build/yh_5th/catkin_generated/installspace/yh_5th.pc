@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/install
+
+Name: yh_5th
+Description: Description of yh_5th
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

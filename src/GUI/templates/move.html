@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyQt5 Web GUI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #container {
+            position: relative;
+            width: 520px;
+            height: 539px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        #map {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 501px;
+            height: 391px;
+            background-image: url('static/5floor.png');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #000;
+        }
+        .button {
+            position: absolute;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 5px;
+            text-align: center;
+            z-index: 10;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #control-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+        }
+        #control-panel .row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 5px 0;
+        }
+        #control-panel button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #control-panel button:hover {
+            background-color: #218838;
+        }
+        #control-panel input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 20;
+        }
+        #back-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <button id="back-button" onclick="goBack()">뒤로가기</button>
+        <div id="map"></div>
+
+        <!-- 지도 위 버튼들 -->
+        <button class="button" style="top: 85px; left: 340px;" data-x="-7.4" data-y="9.7" data-z="0.0">501호</button>
+        <button class="button" style="top: 85px; left: 280px;" data-x="-2.3" data-y="9.5" data-z="0.0">502호</button>
+        <button class="button" style="top: 85px; left: 210px;" data-x="3.3" data-y="9.3" data-z="0.0">503호</button>
+        <button class="button" style="top: 90px; left: 130px;" data-x="-13.1" data-y="10.3" data-z="0.0">504호</button>
+        <button class="button" style="top: 90px; left: 60px;" data-x="-18.2" data-y="8.7" data-z="0.0">505호</button>
+        <button class="button" style="top: 250px; left: 220px;" data-x="-6.8" data-y="0.7" data-z="0.0">506호</button>
+        <button class="button" style="top: 250px; left: 85px;" data-x="-13.8" data-y="1.3" data-z="0.0">실습실</button>
+        <button class="button" style="top: 240px; left: 290px;" data-x="1.3" data-y="-1.0" data-z="0.0">lounge</button>
+        <button class="button" style="top: 180px; left: 440px;" data-x="15.7" data-y="5.6" data-z="0.0">상담실</button>
+        <button class="button" style="top: 40px; left: 395px;" data-x="16" data-y="0.7" data-z="0.0">상담실2</button>
+
+        <!-- 컨트롤 패널 -->
+        <div id="control-panel">
+            <div class="row">
+                <button id="explore">Explore</button>
+                <button id="stop">Stop</button>
+            </div>
+            <div class="row">
+                <input id="xInput" type="text" placeholder="X_axis">
+                <input id="yInput" type="text" placeholder="Y_axis">
+                <button id="move">Move</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 뒤로 가기 버튼 동작
+        function goBack() {
+            window.location.href = "/manager";
+        }
+
+        // 특정 버튼 클릭 이벤트 처리
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', () => {
+                const roomName = button.innerText;
+                const x = button.getAttribute('data-x');
+                const y = button.getAttribute('data-y');
+                const z = button.getAttribute('data-z');
+                alert(`${roomName}(으)로 이동합니다!`);
+                move_absolute(x, y, z);
+            });
+        });
+
+        function move_absolute(x, y, z) {
+            console.log(`Robot moving to: X=${x}, Y=${y}, Z=${z}`);
+        }
+
+        let exploreState = false;
+
+        // Explore / Stop 기능 제어
+        document.getElementById('explore').addEventListener('click', toggleExplore);
+
+        function toggleExplore() {
+            if (exploreState) {
+                console.log("Stopping explore_lite...");
+                alert("맵핑을 멈춥니다");
+                // 실제 명령을 WebSocket 또는 REST API로 로봇에게 전달
+            } else {
+                console.log("Starting explore_lite...");
+                alert("맵핑을 시작합니다");
+                // 실제 명령을 WebSocket 또는 REST API로 로봇에게 전달
+            }
+            exploreState = !exploreState;
+        }
+
+        // Stop 버튼 기능 - 즉시 정지
+        document.getElementById('stop').addEventListener('click', stopRobot);
+
+        function stopRobot() {
+            console.log("Emergency stop triggered!");
+            alert("정지!");
+            // 실제 로봇 정지 명령 전달
+            stop_command();
+        }
+
+        // Move 버튼 기능 - 입력된 좌표로 이동
+        document.getElementById('move').addEventListener('click', () => {
+            const x = document.getElementById('xInput').value.trim();
+            const y = document.getElementById('yInput').value.trim();
+            
+            if (x && y) {
+                alert(`입력된 위치로 이동합니다: X=${x}, Y=${y}`);
+                move_absolute(x, y, "0.0"); // Z값은 기본값 사용
+            } else {
+                alert("X와 Y 값을 모두 입력해주세요!");
+            }
+        });
+
+        // 임시 로봇 정지 명령
+        function stop_command() {
+            console.log("Sending stop command to robot...");
+            // WebSocket 또는 REST API로 로봇 정지 명령 전송
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/devel
+
+Name: scout_mini_lib
+Description: Description of scout_mini_lib
+Version: 0.2.2
+Cflags: -I/home/oem/catkin_JS_ws/src/scout_mini_ros/scout_mini_lib/include
+Libs: -L${prefix}/lib -lscout_mini_controller -lscout_mini_hardware
+Requires: 

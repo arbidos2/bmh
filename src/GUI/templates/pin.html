@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIN 입력 잠금 해제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #pinScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #pinDisplay {
+            font-size: 24px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            width: 200px;
+            background-color: #f9f9f9;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .keypad button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .keypad button:hover {
+            background-color: #0056b3;
+        }
+        #pinScreen button.unlock {
+            background-color: #28a745;
+            margin-top: 15px;
+        }
+        #pinScreen button.unlock:hover {
+            background-color: #218838;
+        }
+        #pinScreen button.back {
+            background-color: #dc3545;
+            margin-top: 10px;
+        }
+        #pinScreen button.back:hover {
+            background-color: #c82333;
+        }
+        #pinMessage {
+            margin-top: 10px;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="pinScreen">
+        <h2>PIN 입력</h2>
+        <div id="pinDisplay">****</div>
+        <div class="keypad">
+            <button onclick="pressKey('1')">1</button>
+            <button onclick="pressKey('2')">2</button>
+            <button onclick="pressKey('3')">3</button>
+            <button onclick="pressKey('4')">4</button>
+            <button onclick="pressKey('5')">5</button>
+            <button onclick="pressKey('6')">6</button>
+            <button onclick="pressKey('7')">7</button>
+            <button onclick="pressKey('8')">8</button>
+            <button onclick="pressKey('9')">9</button>
+            <button onclick="clearPin()">clear</button>
+            <button onclick="pressKey('0')">0</button>
+            <button onclick="deleteLast()">←</button>
+        </div>
+        <button class="unlock" onclick="unlock()">잠금 해제</button>
+        <button class="back" onclick="goBack()">뒤로가기</button>
+        <div id="pinMessage"></div>
+    </div>
+
+    <script>
+        const correctPin = "1234"; // 올바른 PIN 번호
+        let enteredPin = "";
+
+        function pressKey(key) {
+            if (enteredPin.length < 4) {
+                enteredPin += key;
+                updatePinDisplay();
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updatePinDisplay();
+        }
+
+        function deleteLast() {
+            enteredPin = enteredPin.slice(0, -1);
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            const pinDisplay = document.getElementById('pinDisplay');
+            pinDisplay.textContent = enteredPin.padEnd(4, '*');
+        }
+
+        function unlock() {
+            const pinMessage = document.getElementById('pinMessage');
+
+            if (enteredPin === correctPin) {
+                pinMessage.style.color = 'green';
+                pinMessage.textContent = '잠금 해제되었습니다!';
+                setTimeout(() => {
+                    window.location.href = '/manager'; // 성공 시 manager.html로 이동
+            }, 500);
+                
+                
+                
+            } else {
+                pinMessage.style.color = 'red';
+                pinMessage.textContent = '올바르지 않은 PIN입니다. 다시 시도해주세요.';
+            }
+        }
+
+        function goBack() {
+            alert('이전 화면으로 돌아갑니다.');
+            // 뒤로가기 동작 추가 (예: 특정 페이지로 이동)
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

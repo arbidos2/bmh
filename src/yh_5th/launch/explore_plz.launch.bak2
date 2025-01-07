@@ -1,0 +1,64 @@
+<launch>
+   <!-- Turtlebot3 Gazebo 환경 실행 -->
+   <include file="$(find yh_5th)/launch/yh_5th.launch" />
+
+   <!-- Gmapping SLAM 실행 -->
+   <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+     <arg name="slam_methods" value="gmapping"/>
+     <!-- gmapping 파라미터 수정 -->
+     <param name="map_update_interval" value="0.5"/>  <!-- 맵 업데이트 주기 -->
+     <param name="linearUpdate" value="0.1"/>         <!-- 로봇 이동 시 업데이트할 거리 -->
+     <param name="angularUpdate" value="0.1"/>        <!-- 로봇 회전 시 업데이트할 각도 -->
+     <param name="particles" value="400"/>            <!-- 입자 필터에 사용할 파티클 수 -->
+     <param name="xmin" value="-20.0"/>               <!-- 맵의 최소 x 값 -->
+     <param name="ymin" value="-20.0"/>               <!-- 맵의 최소 y 값 -->
+     <param name="xmax" value="20.0"/>                <!-- 맵의 최대 x 값 -->
+     <param name="ymax" value="20.0"/>                <!-- 맵의 최대 y 값 -->
+     <param name="maxRange" value="3.5"/>             <!-- 레이저 스캐너 최대 범위 (Turtlebot3의 범위에 맞춤) -->
+     <param name="delta" value="0.03"/>               <!-- 맵의 해상도 (m/pixel) -->
+   </include>
+
+   <!-- Explore Lite 실행 -->
+   <node pkg="explore_lite" type="explore" name="explore">
+     <param name="progress_timeout" value="30.0"/>    <!-- 목표 경로에 변화가 없을 시 시간 제한 -->
+     <param name="visualization" value="true"/>       <!-- 시각화 활성화 -->
+     <remap from="costmap" to="map"/>                 <!-- 맵과 costmap 리맵핑 -->
+   </node>
+
+   <!-- Move Base 실행 -->
+   <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+     <!-- move_base 관련 파라미터 수정 -->
+     <param name="clearing_rotation_allowed" value="true"/>   <!-- 회전하며 장애물 제거 가능 -->
+     <param name="recovery_behavior_enabled" value="true"/>   <!-- 회복 행동 활성화 -->
+     <param name="planner_patience" value="3.0"/>             <!-- 경로 계획 시간 제한을 줄임 -->
+     <param name="update_frequency" value="5.0"/>             <!-- costmap 업데이트 빈도 -->
+     <param name="publish_frequency" value="2.0"/>            <!-- 맵 퍼블리시 빈도 -->
+
+     <!-- 추가 설정: 로봇 본체 인식 방지 -->
+     <param name="robot_radius" value="0.1"/>               <!-- Turtlebot3의 반경 설정 -->
+     <param name="footprint" value="[[0.1, 0.1], [-0.1, 0.1], [-0.1, -0.1], [0.1, -0.1]]"/> <!-- 사각형 형태의 발자국 설정 -->
+
+     <!-- inflation_layer 설정 수정 -->
+     <param name="inflation_layer/inflation_radius" value="0.5"/> <!-- 인플레이션 반경 확장 -->
+     <param name="inflation_layer/cost_scaling_factor" value="5.0"/> <!-- 비용 증가 속도를 낮춤 -->
+
+     <!-- 레이저 필터 설정 추가 -->
+     <param name="laser_filter_chain/scan_filter_chain/0/name" value="shadow_filter"/>
+     <param name="laser_filter_chain/scan_filter_chain/0/type" value="laser_filters/LaserScanShadowFilter"/>
+     <param name="laser_filter_chain/scan_filter_chain/0/params/max_angle" value="2.5"/>  <!-- 필터 각도 설정 -->
+     <param name="laser_filter_chain/scan_filter_chain/0/params/min_angle" value="-2.5"/>
+     <param name="laser_filter_chain/scan_filter_chain/0/params/range_threshold" value="0.12"/> <!-- 12cm 이내 거리 필터링 -->
+
+     <!-- Global costmap 설정 추가 -->
+     <param name="global_costmap/global_frame" value="map"/>
+     <param name="global_costmap/robot_base_frame" value="base_link"/>
+     <param name="global_costmap/update_frequency" value="5.0"/>
+     <param name="global_costmap/publish_frequency" value="2.0"/>
+     <param name="global_costmap/transform_tolerance" value="0.5"/>
+     <param name="global_costmap/resolution" value="0.05"/>
+
+     <!-- 플러그인 기반 설정 -->
+     <param name="global_costmap/plugins" value="[{name: 'static_layer', type: 'costmap_2d::StaticLayer'}, {name: 'inflation_layer', type: 'costmap_2d::InflationLayer'}]"/>
+   </include>
+
+</launch>

@@ -1,0 +1,2 @@
+project_js:scout_mini_ros/scout_mini_base:scout_mini_ros/scout_mini_control:scout_mini_ros/scout_mini_description:scout_mini_ros/scout_mini_lib:scout_mini_ros/scout_mini_msgs:scout_mini_ros/scout_mini_ros:yh_5th
+-DCATKIN_DEVEL_PREFIX=/home/oem/catkin_JS_ws/devel -DCMAKE_INSTALL_PREFIX=/home/oem/catkin_JS_ws/install -G Unix Makefiles

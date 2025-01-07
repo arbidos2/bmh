@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기능 선택 화면</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #mainScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #mainScreen button {
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        #mainScreen button:hover {
+            background-color: #0056b3;
+        }
+        #mainScreen button.main {
+            background-color: #dc3545;
+        }
+        #mainScreen button.main:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainScreen">
+        <h2>기능 선택</h2>
+        <button onclick="handleDelivery()">물품 전달</button>
+        <button onclick="handleFaceRegistration()">얼굴 등록</button>
+        <button onclick="handleFollow()">Follow</button>
+        <button class="main" onclick="goToMain()">메인으로 나가기</button>
+    </div>
+
+    <script>
+        function handleDelivery() {
+            alert('물품 전달 기능이 선택되었습니다.');
+            window.location.href = '/move';
+        }
+
+        function handleFaceRegistration() {
+            alert('얼굴 등록 기능이 선택되었습니다.');
+            window.location.href = '/face';
+        }
+
+        function handleFollow() {
+            alert('Follow 기능이 선택되었습니다.');
+            // Follow 기능 동작 추가
+        }
+
+        function goToMain() {
+            alert('메인 화면으로 이동합니다.');
+            // 메인 화면으로 이동 (예: 특정 페이지로 이동)
+            window.location.href = '/main'; // 메인 화면 파일 경로로 변경
+        }
+    </script>
+</body>
+</html>

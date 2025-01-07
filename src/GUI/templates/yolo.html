@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLO 웹 통합</title>
+    <script src="https://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <script src="https://cdn.robotwebtools.org/mjpegcanvasjs/current/mjpegcanvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #container {
+            width: 800px;
+            height: 700px;
+            border: 1px solid #ccc;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        #camera {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #000;
+            background-color: #000;
+            margin-bottom: 20px;
+        }
+        #buttonPanel {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #buttonPanel button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+        }
+        #buttonPanel button:hover {
+            background-color: #0056b3;
+        }
+        #actionPanel {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        #actionPanel button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #cancelButton {
+            background-color: #dc3545;
+            color: white;
+        }
+        #cancelButton:hover {
+            background-color: #c82333;
+        }
+        #confirmButton {
+            background-color: #28a745;
+            color: white;
+        }
+        #confirmButton:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>YOLO 객체 감지 결과</h2>
+        <div id="camera">
+            <!-- MJPEG 스트림이 표시될 캔버스 -->
+        </div>
+        <div id="buttonPanel">
+            <button onclick="captureImage()">촬영</button>
+            <button onclick="labeling()">라벨링</button>
+            <button onclick="generateFile()">파일 생성</button>
+        </div>
+        <div id="actionPanel">
+            <button id="cancelButton" onclick="cancelAction()">취소</button>
+            <button id="confirmButton" onclick="confirmAction()">확인</button>
+        </div>
+    </div>
+
+    <script>
+        // ROS WebSocket 연결
+        const ros = new ROSLIB.Ros({
+            url: 'ws://192.168.123.19:9090' // Raspberry Pi의 ROS 브릿지 서버 주소
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to ROS bridge server.');
+        });
+
+        ros.on('error', function(error) {
+            console.error('Error connecting to ROS bridge server:', error);
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to ROS bridge server closed.');
+        });
+
+        // MJPEG 스트림 캔버스 초기화
+        const mjpegCanvas = new MJPEGCANVAS.Viewer({
+            divID: 'camera',          // 캔버스를 표시할 div ID
+            host: '192.168.123.19',          // Raspberry Pi IP 주소
+            port: 8080,               // MJPEG 서버 포트
+            topic: '/yolo_result'     // ROS 토픽
+        });
+
+        // 기타 버튼 동작
+        function captureImage() {
+            alert('촬영 버튼 클릭됨!');
+        }
+
+        function labeling() {
+            alert('라벨링 버튼 클릭됨!');
+        }
+
+        function generateFile() {
+            alert('파일 생성 버튼 클릭됨!');
+        }
+
+        function cancelAction() {
+            alert('취소되었습니다.');
+        }
+
+        function confirmAction() {
+            alert('확인되었습니다.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/install
+
+Name: scout_mini_control
+Description: Description of scout_mini_control
+Version: 0.2.2
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

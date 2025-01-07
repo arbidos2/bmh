@@ -1,0 +1,8 @@
+prefix=/home/oem/catkin_JS_ws/install
+
+Name: scout_mini_base
+Description: Description of scout_mini_base
+Version: 0.2.2
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 
