@@ -1,0 +1,51 @@
+<launch>
+    <param name="use_sim_time" value="true"/>
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+      <remap from="scan" to="base_scan"/>
+      <!-- 맵 업데이트 주기 -->
+      <!-- <param name="map_update_interval" value="5.0"/> -->
+      <param name="map_update_interval" value="2.0"/>
+      <!-- <param name="maxUrange" value="16.0"/> -->
+      <!-- <param name="maxUrange" value="20.0"/> -->
+      <param name="maxUrange" value="10.0"/>
+      <!-- <param name="sigma" value="0.05"/> -->
+      <param name="sigma" value="0.1"/>
+      <param name="kernelSize" value="1"/>
+      <param name="lstep" value="0.05"/>
+      <param name="astep" value="0.05"/>
+      <param name="iterations" value="5"/>
+      <param name="lsigma" value="0.075"/>
+      <param name="ogain" value="3.0"/>
+      <!-- 레이저 스캔 데이터를 일부 건너뛰도록 설정 -->
+      <!-- <param name="lskip" value="0"/> -->
+      <param name="lskip" value="1"/>
+      <param name="lskip" value="0"/>
+      <param name="srr" value="0.1"/>
+      <param name="srt" value="0.2"/>
+      <param name="str" value="0.1"/>
+      <param name="stt" value="0.2"/>
+      <!-- 직선거리 기준 갱신 -->
+      <param name="linearUpdate" value="1.0"/>
+      <!-- <param name="linearUpdate" value="0.5"/> -->
+      <!-- <param name="linearUpdate" value="0.2"/> -->
+      <!-- 회전거리 기준 갱신 -->
+      <param name="angularUpdate" value="0.5"/>
+      <!-- <param name="angularUpdate" value="0.2"/> -->
+      <param name="angularUpdate" value="0.1"/>
+      <param name="temporalUpdate" value="3.0"/>
+      <param name="resampleThreshold" value="0.5"/>
+      <!-- <param name="particles" value="30"/> -->
+      <param name="particles" value="50"/>
+      <param name="xmin" value="-20.0"/>
+      <param name="ymin" value="-20.0"/>
+      <param name="xmax" value="20.0"/>
+      <param name="ymax" value="20.0"/>
+      <!-- 지도의 해상도를 낮춰 성능을 최적화 -->
+      <!-- <param name="delta" value="0.05"/> -->
+      <param name="delta" value="0.1"/>
+      <param name="llsamplerange" value="0.01"/>
+      <param name="llsamplestep" value="0.01"/>
+      <param name="lasamplerange" value="0.005"/>
+      <param name="lasamplestep" value="0.005"/>
+    </node>
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/oem/scout_ws/devel
+
+Name: scout_base
+Description: Description of scout_base
+Version: 0.0.0
+Cflags: -I/home/oem/scout_ws/src/scout_gazebo_sim/scout/scout_base/include
+Libs: -L${prefix}/lib -lscout_messenger
+Requires: 

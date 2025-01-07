@@ -1,0 +1,8 @@
+prefix=/home/oem/scout_ws/install
+
+Name: scout_teleop
+Description: Description of scout_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: rospy geometry_msgs

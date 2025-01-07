@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/configfile/configfile.cpp
+cstdlib
+-
+gmapping/configfile/configfile.h
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/configfile/gmapping/configfile/configfile.h
+fstream
+-
+iostream
+-
+string
+-
+sstream
+-
+iostream
+-
+ctype.h
+-
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/include/gmapping/configfile/configfile.h
+iostream
+-
+string
+-
+map
+-
+

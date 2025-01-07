@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/include/gmapping/utils/autoptr.h
+assert.h
+-
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/utils/autoptr_test.cpp
+iostream
+-
+gmapping/utils/autoptr.h
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/utils/gmapping/utils/autoptr.h
+

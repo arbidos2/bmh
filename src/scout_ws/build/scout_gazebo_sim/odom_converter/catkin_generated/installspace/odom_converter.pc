@@ -1,0 +1,8 @@
+prefix=/home/oem/scout_ws/install
+
+Name: odom_converter
+Description: Description of odom_converter
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

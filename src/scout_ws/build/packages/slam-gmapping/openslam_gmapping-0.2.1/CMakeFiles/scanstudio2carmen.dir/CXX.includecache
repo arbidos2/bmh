@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/include/gmapping/utils/gvalues.h
+values.h
+-
+limits.h
+-
+math.h
+-
+limits
+-
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/include/gmapping/utils/point.h
+assert.h
+-
+math.h
+-
+iostream
+-
+gmapping/utils/gvalues.h
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/include/gmapping/utils/gmapping/utils/gvalues.h
+
+/home/oem/scout_ws/src/packages/slam-gmapping/openslam_gmapping-0.2.1/log/scanstudio2carmen.cpp
+cstdlib
+-
+iostream
+-
+fstream
+-
+sstream
+-
+assert.h
+-
+gmapping/utils/point.h
+-
+

@@ -1,0 +1,2 @@
+set(robot_localization_MESSAGE_FILES "")
+set(robot_localization_SERVICE_FILES "/home/oem/scout_ws/src/packages/robot_localization/srv/GetState.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/SetDatum.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/SetPose.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/SetUTMZone.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/ToggleFilterProcessing.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/FromLL.srv;/home/oem/scout_ws/src/packages/robot_localization/srv/ToLL.srv")
